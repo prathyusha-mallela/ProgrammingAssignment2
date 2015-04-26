@@ -1,0 +1,35 @@
+##makeCacheMatrix
+##set the value of the matrix
+##get the value of the matrix
+##set the value of the inverse matrix
+##get the value of the inverse matrix
+## Assuming that the matrix supplied is a square, invertible matrix
+## inverse calculation in R, given matrix A, solve(A) or ginv(A)
+makeCacheMatrix <- function(x = matrix()) {
+  minv <- NULL
+  set <- function(y)
+    x <<-y
+  minv <- NULL # <<-
+  get <- function() x
+  setinverse <- function(solve) minv <<- solve
+  getinverse <- function() minv
+  list(set=set,get=get,setinverse=setinverse,getinverse=getinverse)
+  
+}
+
+#cacheSolve
+
+cacheSolve <- function(x, ...) {
+  
+ 
+  m <- x$getinverse()
+  if(!is.null(m))
+  {
+    message("Loading the inverse matrix")
+    return(m)
+    data <- x$get()
+    m <- solve(data)
+    x$setinverse(m)
+    m
+  }
+}
